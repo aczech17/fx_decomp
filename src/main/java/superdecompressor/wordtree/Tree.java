@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public class Tree
 {
-    private Node head;
+    private Node root;
     private void addWordTraverse(Vector<Boolean> originalWord, Vector<Boolean> codeword, Node node)
     {
         if (codeword.isEmpty())
@@ -34,22 +34,27 @@ public class Tree
     {
         if (dictionary.getSize() == 0)
         {
-            head = null;
+            root = null;
             return;
         }
 
-        head = new Node();
+        root = new Node();
         if (dictionary.getSize() == 1)
         {
             var originalWord = dictionary.iterator().next().getOriginalWord();
-            head.value = originalWord;
+            root.value = originalWord;
             return;
         }
 
         for (var entry: dictionary)
         {
             Vector<Boolean> codeword = (Vector<Boolean>) entry.getCodeword().clone(); // copy!
-            addWordTraverse(entry.getOriginalWord(), codeword, head);
+            addWordTraverse(entry.getOriginalWord(), codeword, root);
         }
+    }
+
+    public Node getRoot()
+    {
+        return root;
     }
 }

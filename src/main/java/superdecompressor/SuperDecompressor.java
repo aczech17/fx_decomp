@@ -38,18 +38,21 @@ public class SuperDecompressor
         }
     }
     public static Tree decompress(String[] args)
-            throws IOException, FileCorrupted, EndOfFile, BadSignature, BadArguments, FileNonexistent, FileAlreadyExists
+            throws IOException, FileCorrupted, EndOfFile, BadSignature, BadArguments, FileNonexistent
     {
         ProgramConfig programConfig;
         programConfig = new ProgramConfig(args);
 
-
-
         if (Util.getFileSize(programConfig.getInputFilename()) == 0)
         {
-            File emptyFile = new File(programConfig.getOutputFilename()); // Create an empty file.
-            if (!emptyFile.createNewFile())
-                throw new FileAlreadyExists(programConfig.getOutputFilename());
+            // Create a new empty file.
+
+            System.out.println("tworzymy pusty");
+
+            File emptyFile = new File(programConfig.getOutputFilename());
+            emptyFile.createNewFile();
+
+            System.out.println("Stworzyliśmy pusty");
         }
 
         Decrypt.decrypt(programConfig);

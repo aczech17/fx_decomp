@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import superdecompressor.SuperDecompressor;
 import superdecompressor.exceptions.*;
+import superdecompressor.wordtree.Tree;
 
 import java.io.IOException;
 
@@ -29,6 +31,9 @@ public class Controller {
     String path;
 
     String[] args = new String[3];
+
+    boolean error = false;
+
     public void submit(ActionEvent event) throws EndOfFile, FileCorrupted, IOException {
 
         in1 = input1.getText();
@@ -38,24 +43,33 @@ public class Controller {
         args[1] = in2;
         args[2] = in3;
 
+        Tree tree = null;
+        error = false;
         try
         {
-            SuperDecompressor.decompress(args);
+            tree = SuperDecompressor.decompress(args);
         }
         catch (BadSignature badSignature)
         {
             pswd.setText("złe hasło");
-        } catch (BadArguments e)
+            error = true;
+        }
+        catch (BadArguments e)
         {
-            throw new RuntimeException(e);
-        } catch (FileAlreadyExists e)
+            throw new RuntimeException(e); // it won't happen anyway
+        }
+        catch (FileNonexistent e)
         {
-            throw new RuntimeException(e);
-        } catch (FileNonexistent e)
-        {
-            throw new RuntimeException(e);
+            pswd.setText("Nie ma takiego pliku");
+            error = true;
         }
 
+        if (!error)
+        {
+            var visualisation = new TreeVisualization(tree);
+            visualisation.start(new Stage());
+            pswd.setText("Zdekompresowano");
+        }
 
     }
 
