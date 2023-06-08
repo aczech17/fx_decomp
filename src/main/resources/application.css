@@ -1,0 +1,22 @@
+.root{
+    -fx-background-color:"purple";
+
+}
+#titleLabel{
+    -fx-text-fill: "white";
+    -fx-font-size: 20;
+}
+
+#txtlbl{
+    -fx-text-fill: "white";
+    -fx-font-size: 13;
+}
+
+#sub{
+    -fx-background-color: "white";
+    -fx-text-fill: "black";
+}
+
+#sub:hover{
+    -fx-background-color: "grey";
+}
