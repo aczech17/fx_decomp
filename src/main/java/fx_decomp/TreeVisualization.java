@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import superdecompressor.wordtree.Node;
 import superdecompressor.wordtree.Tree;
 
+import static superdecompressor.Util.getBinaryString;
+
 public class TreeVisualization extends Application
 {
 
@@ -72,6 +74,10 @@ public class TreeVisualization extends Application
             gc.strokeLine(x, y, childX, childY);
             drawTree(gc, node.getRight(), childX, childY, offsetX / 2);
         }
+
+        gc.setFill(Color.WHITE);
+        String binaryString = getBinaryString(node.getValue());
+        gc.fillText(binaryString, x - NODE_RADIUS / 2, y + NODE_RADIUS / 2);
     }
 
 }

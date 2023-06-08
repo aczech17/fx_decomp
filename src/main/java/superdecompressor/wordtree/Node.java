@@ -17,4 +17,9 @@ public class Node
     {
         return right;
     }
+
+    public Vector<Boolean> getValue()
+    {
+        return value;
+    }
 }

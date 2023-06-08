@@ -50,4 +50,21 @@ public class Util
             throw new FileNotFoundException("");
         }
     }
+
+    public static String getBinaryString(Vector<Boolean> word)
+    {
+        if (word == null)
+            return "";
+
+        String str = "";
+        for (var bit: word)
+        {
+            if (bit == false)
+                str += "0";
+            else
+                str += "1";
+        }
+
+        return str;
+    }
 }
