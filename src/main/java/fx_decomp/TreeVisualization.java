@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import superdecompressor.wordtree.Node;
 import superdecompressor.wordtree.Tree;
@@ -66,6 +67,7 @@ public class TreeVisualization extends Application
             double childY = y + LEVEL_HEIGHT;
             gc.strokeLine(x, y, childX, childY);
             drawTree(gc, node.getLeft(), childX, childY, offsetX / 2);
+            drawBitOnEdge(gc,"0", (x + childX) / 2, (y + childY) / 2);
         }
         if (node.getRight() != null)
         {
@@ -73,11 +75,21 @@ public class TreeVisualization extends Application
             double childY = y + LEVEL_HEIGHT;
             gc.strokeLine(x, y, childX, childY);
             drawTree(gc, node.getRight(), childX, childY, offsetX / 2);
+            drawBitOnEdge(gc,"1", (x + childX) / 2, (y + childY) / 2);
         }
+
 
         gc.setFill(Color.WHITE);
         String binaryString = getBinaryString(node.getValue());
+        gc.setFont(Font.font("Arial", 12));
         gc.fillText(binaryString, x - NODE_RADIUS / 2, y + NODE_RADIUS / 2);
     }
+
+    private void drawBitOnEdge(GraphicsContext gc, String s, double x, double y)
+    {
+        gc.setFill(Color.BLACK);
+        gc.fillText(s, x, y);
+    }
+
 
 }
